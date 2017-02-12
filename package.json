@@ -2,7 +2,7 @@
   "name": "blackjack",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,5 +15,14 @@
   "bugs": {
     "url": "https://github.com/RADesai/Blackjack/issues"
   },
-  "homepage": "https://github.com/RADesai/Blackjack#readme"
+  "homepage": "https://github.com/RADesai/Blackjack#readme",
+  "dependencies": {
+    "angular": "^1.6.2",
+    "angular-route": "^1.6.2",
+    "body-parser": "^1.16.1",
+    "cors": "^2.8.1",
+    "express": "^4.14.1",
+    "method-override": "^2.3.7",
+    "mongoose": "^4.8.2"
+  }
 }

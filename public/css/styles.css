@@ -1,0 +1,31 @@
+.surfaceText {
+  color: darkseagreen;
+}
+body {
+    /*background: url('http://cdn.wonderfulengineering.com/wp-content/uploads/2014/04/space-wallpaper.jpg') fixed;*/
+    /*background: url('./ultra-green-table-felt.jpeg') fixed;*/
+    background: url('http://i.imgur.com/I73OWYX.jpg') fixed;
+}
+
+.jumbotronT {
+  /*opacity: 0.95;*/
+  background-color: transparent;
+}
+
+.jumbotron {
+  background-color: darkseagreen;
+}
+
+.error {
+  border: red solid 4px;
+  padding: 10px;
+  margin: 0 10px;
+}
+
+.playerInfo {
+
+}
+/*
+.container {
+  display: inline-grid;
+}*/
