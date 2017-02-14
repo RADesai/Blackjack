@@ -5,24 +5,32 @@ body {
     /*background: url('http://cdn.wonderfulengineering.com/wp-content/uploads/2014/04/space-wallpaper.jpg') fixed;*/
     /*background: url('./ultra-green-table-felt.jpeg') fixed;*/
     /*background: url('http://i.imgur.com/I73OWYX.jpg') fixed;*/
-    background-color: #FFD877;
-    /*background-color: black;*/
+    background-color: #2AA6CC;
+    color: #FFD877;
 }
 
-.header {
-  background-color: black;
-  border-bottom: 1px solid #867BCD;
+.jumbotron.header {
+  background: transparent;
+  background-color: transparent;
+  border-bottom: 2px solid #867BCD;
 }
 
-logo {
-  background-color: #FFF;
+.jumbotron.intro {
+  font-family: 'Josefin Sans', sans-serif;
+  border-bottom: 2px solid #867BCD;
 }
+
 .yellow {
   background-color: #FFD877;
 }
 
 .jumbotron {
-  background-color: darkseagreen;
+  /*background-color: darkseagreen;*/
+  background-color: transparent;
+}
+
+.lead {
+  font-family: 'Lato', sans-serif;
 }
 
 .jumbotronT {
@@ -31,10 +39,12 @@ logo {
 }
 
 .message {
-  color: #867BCD;
-  background-color: #FFD877;
-  transition-delay: 0.1;
-  transform: rotateX(10deg);
+  background-color: transparent;
+  color: #FFD877;
+}
+
+.playerInfo {
+  font-family: 'Nova Mono', monospace;
 }
 
 .error {
@@ -43,10 +53,10 @@ logo {
   margin: 0 10px;
 }
 
+.btn {
+  color: #2AA6CC;
+}
+
 .playerInfo {
 
 }
-/*
-.container {
-  display: inline-grid;
-}*/

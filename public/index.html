@@ -5,6 +5,7 @@
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:600|Lato|Nova+Mono" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./css/styles.css" />
 
     <title>LifeJax</title>
@@ -16,28 +17,18 @@
   </head>
 
   <body ng-app="app" ng-controller="GameController">
+
+    <div class="jumbotron header">
+      <img src="./LifeJack.png" class="img-fluid rounded" />
+    </div>
+
     <div class="container">
-
-      <div class="header clearfix">
-        <div class="jumbotron jumbotronT">
-          <div class="logo">
-            <img src="./LifeJack.png" class="img-fluid rounded" />
-          </div>
-        </div>
-      </div>
-
-      <div class="jumbotron jumbotronT">
-        <div class="yellow">
-          <img src="../LifeJackk.png" class="img-fluid rounded" />
-        </div>
-      </div>
-
-      <div class="jumbotron">
+      <div class="jumbotron intro">
         <h3>Working hard? Step into the lion's den and see if you have what it takes to earn a break.</h1>
         <p class="lead">
-            This is a very simple app that uses time as currency to play a quick card game.
-            You'll play for 5 hands, and the game will decide if you've earned some 'play time' or
-            'work time,' the more you gamble the higher the stakes get!
+          This is a very simple app that uses time as currency to play games of BlackJack.
+          Depending on how you do, you'll either earn yourself some 'play time' or
+          'work time,' the more you gamble the higher the stakes get!
         </p>
         <p class="lead"><strong>Play BlackJack Below!</strong></p>
       </div>
@@ -48,27 +39,43 @@
         </div>
       </div>
 
-      <div class="jumbotron text-center"> <!-- ng-controller="Gamify"> -->
-        <!-- <ul class="nav nav-pills">
-          <li class="nav-item">
-            <a class="nav-link active">Active</a>
-          </li>
-        </ul> -->
+      <!-- <div class="jumbotron jumbotronT text-center">
+        <div class="col-md-6">
+          <div class="list-group">
+            <p class="list-group-item message" ng-repeat="message in game.messages track by $index">{{message}}"</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="playerInfo">
+            <div class="list-group">
+              <a class="list-group-item list-group-item-action list-group-item-warning" ng-if="game.playerTurn">
+                Your hand: {{game.player.total}}   v   Dealer's showing: {{game.dealer.hand[0].value}}
+              </a>
+              <a class="list-group-item list-group-item-action list-group-item-warning" ng-if="!game.playerTurn">
+                Your hand: {{game.player.total}}   v   Dealer's hand: {{game.dealer.total}}
+              </a>
+              <a class="list-group-item list-group-item-action list-group-item-info">Current Bet: {{game.bet}}</a>
+              <a class="list-group-item list-group-item-action list-group-item-success">Balance: {{game.time}}</a>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+      <div class="jumbotron text-center">
           <div class="play">
             <h2 ng-if="game.playerTurn===true">Your Move!</h2>
             <h2 ng-if="game.over===true">Game Over!</h2>
-<!-- MAKE A BET HERE BEFORE PLAYING -->
-      <!--      <div class="form-group" >  ng-if="game.bet===0"
-               Please enter a time (in minutes!)
-              <label for="bet">BET : </label>
-              <input required type="text" ng-class="{'error': signupForm.$invalid && signupForm.$dirty}" placeholder="Enter your bet here before playing" class="form-control" ng-model='game.bet'>
-            </div>
-            <button type="submit" ng-disabled="Number(game.bet)<=0" ng-click="game.startGame()">PLAY</button>
--->         <div class="playerInfo">
+
+            <div class="playerInfo">
               <div class="list-group">
-                <a class="list-group-item list-group-item-action list-group-item-warning">Your hand : {{game.player.total}}   v   Dealer's hand : {{game.dealer.total}}</a>
-                <a class="list-group-item list-group-item-action list-group-item-info">Current Bet : {{game.bet}}</a>
-                <a class="list-group-item list-group-item-action list-group-item-success">Balance : {{game.time}}</a>
+                <a class="list-group-item list-group-item-action list-group-item-warning" ng-if="game.playerTurn">
+                  Your hand: {{game.player.total}}   v   Dealer's showing: {{game.dealer.hand[0].value}}
+                </a>
+                <a class="list-group-item list-group-item-action list-group-item-warning" ng-if="!game.playerTurn">
+                  Your hand: {{game.player.total}}   v   Dealer's hand: {{game.dealer.total}}
+                </a>
+                <a class="list-group-item list-group-item-action list-group-item-info">Current Bet: {{game.bet}}</a>
+                <a class="list-group-item list-group-item-action list-group-item-success">Balance: {{game.time}}</a>
               </div>
             </div>
 
@@ -79,19 +86,22 @@
 
             <div class="jumbotron" ng-if"game.over">
               <form name="makeABet" ng-submit='game.startGame()'>
-                <input type='text' name="userBet"
+                <input
+                type='text'
+                name="userBet"
                 required ng-model='game.bet'
-                ng-class="{'error': makeABet.$invalid && makeABet.$dirty}">
-                <button ng-disabled="game.bet===0" class="btn btn-lg btn-info">Play</button>
+                ng-class="{'error': makeABet.$invalid && makeABet.$dirty}"
+                >
+                <button ng-disabled="game.bet===0" class="btn btn-lg btn-success">Play</button>
               </form>
 
               <div class="jumbotron">
-                <a class="btn btn-xs btn-outline-danger" ng-click="game.reset()">RESET</a>
+                <button class="btn btn-xs btn-danger" ng-click="game.reset()">RESET HAND</button>
               </div>
 
-              <!-- <div ng-if='makeBet.userBet.$error.required && makeBet.$dirty' class="message">
+              <div ng-if='makeBet.userBet.$error.required && makeBet.$dirty' class="message">
                 <h2>Bet required</h2>
-              </div> -->
+              </div>
             </div>
 <!-- MAKE A BET ABOVE BEFORE PLAYING -->
 
