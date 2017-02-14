@@ -48,6 +48,8 @@ app.factory('Game', function () {
       '2C.svg', '3C.svg', '4C.svg', '5C.svg', '6C.svg', '7C.svg', '8C.svg', '9C.svg', '10C.svg', 'JC.svg', 'QC.svg', 'KC.svg', 'AC.svg',
       '2D.svg', '3D.svg', '4D.svg', '5D.svg', '6D.svg', '7D.svg', '8D.svg', '9D.svg', '10D.svg', 'JD.svg', 'QD.svg', 'KD.svg', 'AD.svg'
     ];
+    this.playerHand = [];
+    this.dealerHand = [];
   };
 
   BlackJack.prototype.reset = function() {
@@ -71,6 +73,8 @@ app.factory('Game', function () {
       Clubs : ['2','3','4','5','6','7','8','9','10','J','Q','K','A'],
       Diamonds : ['2','3','4','5','6','7','8','9','10','J','Q','K','A']
     };
+    this.playerHand = [];
+    this.dealerHand = [];
     this.messages = ["Let's start that up again!"];
   };
 
@@ -132,11 +136,13 @@ app.factory('Game', function () {
         if (this.player.hand[0].suit === 'unknown') {                           // First card for player
           this.player.hand[0].suit = randomSuit;                                // adjust hand suit
           this.player.hand[0].value = this.deck[randomSuit][randomCard];        // adjust hand value
+          this.playerHand.push(this.deck[randomSuit][randomCard] + randomSuit[0]);
           this.deck[randomSuit][randomCard] = '';                               // adjust deck
           this.playerTurn = false;                                              // change turn
         } else {
           this.player.hand[1].suit = randomSuit;                                // adjust hand suit
           this.player.hand[1].value = this.deck[randomSuit][randomCard];        // adjust hand value
+          this.playerHand.push(this.deck[randomSuit][randomCard] + randomSuit[0]);
           this.deck[randomSuit][randomCard] = '';                               // adjust deck
           this.playerTurn = false;
         }
@@ -144,11 +150,13 @@ app.factory('Game', function () {
         if (this.dealer.hand[0].suit === 'unknown') {                           // First card for dealer
           this.dealer.hand[0].suit = randomSuit;                                // adjust hand suit
           this.dealer.hand[0].value = this.deck[randomSuit][randomCard];        // adjust hand value
+          this.dealerHand.push(this.deck[randomSuit][randomCard] + randomSuit[0]);
           this.deck[randomSuit][randomCard] = '';                               // adjust deck
           this.playerTurn = true;                                               // change turn
         } else {
           this.dealer.hand[1].suit = randomSuit;                                // adjust hand suit
           this.dealer.hand[1].value = this.deck[randomSuit][randomCard];        // adjust hand value
+          this.dealerHand.push(this.deck[randomSuit][randomCard] + randomSuit[0]);
           this.deck[randomSuit][randomCard] = '';                               // adjust deck
           this.playerTurn = true;
         }
@@ -196,11 +204,11 @@ app.factory('Game', function () {
           suit : randomSuit,
           value : this.deck[randomSuit][randomCard]
         });
+        this.playerHand.push(this.deck[randomSuit][randomCard] + randomSuit[0]);
         this.updateScore();
         this.messages.push('You just drew: ' + this.deck[randomSuit][randomCard] + ' of ' + randomSuit +
         '\n your total is now at: ' + this.player.total);
         if (this.player.total > 21) {
-          // console.log('player busted with:', this.player.hand);
           this.playerTurn = false;
           this.bust();
         } else {
@@ -211,6 +219,7 @@ app.factory('Game', function () {
           suit : randomSuit,
           value : this.deck[randomSuit][randomCard]
         });
+        this.dealerHand.push(this.deck[randomSuit][randomCard] + randomSuit[0]);
         this.updateScore();
 
         // Inform player what the Dealer drew ------
@@ -218,19 +227,15 @@ app.factory('Game', function () {
         '\n his total is now at: ' + this.dealer.total);
 
         if (this.dealer.total < 17) {
-          // console.log('dealer hits again', this.dealer.hand);
           this.hit();
         } else if (this.dealer.total > 21) {
-          // console.log('dealer busted with:', this.dealer.hand);
           this.bust();
         } else {
-          // console.log('dealer has a viable hand', this.dealer.hand);
           this.end();
         }
       }
     } else {
       // Draw a different card, this one is already in play
-      // console.log('It seems a card was already drawn ... a different card will be drawn instead.');
       this.hit();
     }
 
@@ -243,18 +248,14 @@ app.factory('Game', function () {
     console.log('Dealer Hand :', this.dealer.hand);
     if (this.player.total > 21) {
       this.time -= Number(this.bet);
-      // alert('Oh no! You busted!');
       this.messages.push('Oh no! You busted!');
     } else if (this.dealer.total > 21) {
       this.time += Number(this.bet);
-      // alert('Yes! The dealer busted!');
       this.messages.push('Yes! The dealer busted!');
     }
     // PLAY AGAIN ?
-    // setTimeout(function() {
-      this.messages.push('Your winnings are currently at ' + this.time + ' minutes.' +
-        '\n Thanks for playing! Hit RESET to play again!');
-    // }, 1500);
+    this.messages.push('Your winnings are currently at ' + this.time + ' minutes.' +
+      '\n Thanks for playing! Hit RESET to play again!');
   };
 
   BlackJack.prototype.end = function() {
@@ -266,48 +267,32 @@ app.factory('Game', function () {
     console.log('Dealer Hand :', this.dealer.hand);
     if (this.player.total === 21) {
       this.time += 1.5 * Number(this.bet);
-      // alert('BLACKJACK!' +
-      // '\n' + this.dealer.total + ' to ' + this.player.total);
       this.messages.push('BLACKJACK!');
     } else if (this.dealer.total === 21) {
       this.time -= Number(this.bet);
-      // alert('Oh no! The dealer has BLACKJACK!' +
-      // '\n' + this.dealer.total + ' to ' + this.player.total);
       this.messages.push('Oh no! The dealer has BLACKJACK!');
     } else if (this.player.total > this.dealer.total) {
       this.time += Number(this.bet);
-      // alert('You won this hand!' +
-      // '\n' + this.dealer.total + ' to ' + this.player.total);
       this.messages.push('You won this hand!');
     } else if (this.player.total === this.dealer.total) {
-      // alert('This round is a push!');
       this.messages.push('PUSH');
     } else {
       this.time -= Number(this.bet);
-      // alert('You lost this hand!' +
-      // '\n' + this.dealer.total + ' to ' + this.player.total);
       this.messages.push('You lost this hand!');
     }
     // PLAY AGAIN ?
-    // var move = prompt('Your winnings are currently at ' + this.time + ' minutes.' +
-    //   '\n Would you like to play again? Please enter "y" for yes or "n" if not.', 'y');
-    // if (move === 'y') {
-    //   var newGame = new BlackJack(this.time);
-    // } else {
-      // if time is negative -- they have to work
     if (this.time > 0) {
-      // alert("Thanks for playing, but now you've got " + this.time + " minutes to play!");
       this.messages.push("Thanks for playing, but now you've got " + this.time + " minutes to play!");
     } else {
-      // alert("Thanks for playing, but now you've got " + this.time * -1 + " minutes of work to do!");
       this.messages.push("Thanks for playing, but now you've got " + this.time * -1 + " minutes of work to do!");
     }
     this.bet = 0;
   };
-  var returnGame = new BlackJack(0);
 
-  return returnGame;
+  // var returnGame = new BlackJack(0);
+  // return returnGame;
+  return new BlackJack(0);
 });
-app.service('myService', function() {
-
-});
+// app.service('myService', function() {
+//
+// });
