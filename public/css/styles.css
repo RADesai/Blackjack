@@ -4,7 +4,25 @@
 body {
     /*background: url('http://cdn.wonderfulengineering.com/wp-content/uploads/2014/04/space-wallpaper.jpg') fixed;*/
     /*background: url('./ultra-green-table-felt.jpeg') fixed;*/
-    background: url('http://i.imgur.com/I73OWYX.jpg') fixed;
+    /*background: url('http://i.imgur.com/I73OWYX.jpg') fixed;*/
+    background-color: #FFD877;
+    /*background-color: black;*/
+}
+
+.header {
+  background-color: black;
+  border-bottom: 1px solid #867BCD;
+}
+
+logo {
+  background-color: #FFF;
+}
+.yellow {
+  background-color: #FFD877;
+}
+
+.jumbotron {
+  background-color: darkseagreen;
 }
 
 .jumbotronT {
@@ -12,8 +30,11 @@ body {
   background-color: transparent;
 }
 
-.jumbotron {
-  background-color: darkseagreen;
+.message {
+  color: #867BCD;
+  background-color: #FFD877;
+  transition-delay: 0.1;
+  transform: rotateX(10deg);
 }
 
 .error {

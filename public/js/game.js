@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute']);
+var app = angular.module('app', ['ngRoute', 'ngAnimate']);
 
 app.config(function ($routeProvider, $httpProvider) {
   $routeProvider
@@ -10,48 +10,29 @@ app.config(function ($routeProvider, $httpProvider) {
 });
 
 app.controller('GameController', function ($scope, Game) {
-  // $scope.messages = {
-  //   test: 'it works'
-  // };
-  // $scope.blackjackClass = Game.blackjack;
-  // $scope.newGame = new $scope.blackjackClass();
-  // $scope.newGameObj = new Game.BlackJack();
   $scope.game = Game;
-
-  $scope.tryThis = function() {
-    console.log('function called');
-    $scope.test = 'whoaa';
-  };
-
   return true;
 });
 
-app.factory('Game', function () { // might need $window
+app.factory('Game', function () {
   // IMPORT
   var BlackJack = function(time) {
     this.time = time;
     this.bet = 0;
     this.messages = ['How much time will you win? Only the cards know!', 'Enter your bet and hit play to start!'];
-    // this.messages.push( = '';
     this.showPlayButton = true;
     this.dealer = {
-      hand : [{
-        suit : 'unknown',
-        value : 0
-      }, {
-        suit : 'unknown',
-        value : 0
-      }],
+      hand : [
+        { suit : 'unknown', value : 0 },
+        { suit : 'unknown', value : 0 }
+      ],
       total : 0
     };
     this.player = {
-      hand : [{
-        suit : 'unknown',
-        value : 0
-      }, {
-        suit : 'unknown',
-        value : 0
-      }],
+      hand : [
+        { suit : 'unknown', value : 0 },
+        { suit : 'unknown', value : 0 }
+      ],
       total : 0
     };
     this.playerTurn = false;
@@ -65,23 +46,17 @@ app.factory('Game', function () { // might need $window
 
   BlackJack.prototype.reset = function() {
     this.dealer = {
-      hand : [{
-        suit : 'unknown',
-        value : 0
-      }, {
-        suit : 'unknown',
-        value : 0
-      }],
+      hand : [
+        { suit : 'unknown', value : 0 },
+        { suit : 'unknown', value : 0 }
+      ],
       total : 0
     };
     this.player = {
-      hand : [{
-        suit : 'unknown',
-        value : 0
-      }, {
-        suit : 'unknown',
-        value : 0
-      }],
+      hand : [
+        { suit : 'unknown', value : 0 },
+        { suit : 'unknown', value : 0 }
+      ],
       total : 0
     };
     this.deck = {
@@ -91,17 +66,9 @@ app.factory('Game', function () { // might need $window
       Diamonds : ['2','3','4','5','6','7','8','9','10','J','Q','K','A']
     };
     this.messages = ["Let's start that up again!"];
-
   };
 
   BlackJack.prototype.startGame = function() {
-    // var bet = prompt('You currently have: ' + this.time + ' earned minutes' +
-    // '\n How much time will you bet?', '1');
-    // this.bet = bet;
-
-    // this.messages.push('You currently have: ' + this.time + ' earned minutes' +
-    // '\n How much time will you bet?');
-    // this.bet = num;
     this.over = false;
     this.deal();
   };
@@ -109,9 +76,6 @@ app.factory('Game', function () { // might need $window
   BlackJack.prototype.makeBet = function() {
     this.messages.push('You currently have: ' + this.time + ' earned minutes' +
     '\n How much time will you bet?');
-    // this.bet = num;
-    console.log('bet should be in by now');
-    // this.startGame(); // need to start game upon submitting bet!
   };
 
   BlackJack.prototype.deal = function() {
@@ -120,7 +84,7 @@ app.factory('Game', function () { // might need $window
     this.drawCard();
     this.drawCard();
     this.drawCard();
-    this.messages.push('The dealer is currently showing a: ' + this.player.hand[0].value + ' of ' + this.player.hand[0].suit);
+    this.messages.push('The dealer is currently showing a: ' + this.dealer.hand[0].value + ' of ' + this.dealer.hand[0].suit);
     this.messages.push('Your starting hand: ' + this.player.hand[0].value + ' of ' + this.player.hand[0].suit + ' && ' +
     '\n' + this.player.hand[1].value + ' of ' + this.player.hand[1].suit);
     // Set point values of cards ------
@@ -135,21 +99,12 @@ app.factory('Game', function () { // might need $window
   };
 
   BlackJack.prototype.playerMove = function() {
-    // var move = prompt('Your hand is currently at ' + this.player.total + '.' +
-    // '\n' + ' The dealer is showing a: ' + this.dealer.hand[0].value + '.' +
-    // '\n' + ' Enter "h" to hit or "s" to stand', 's');
-    // if (move === 'h' || move === 'H') {
-    //   this.hit();
-    //   // this.playerMove(); ?
-    // } else { // Player chose to stand
       this.playerTurn = false;
       // Dealer must show hidden card && draw if total is under 17
       this.messages.push('The dealer flipped a ' + this.dealer.hand[1].value + ' of ' + this.dealer.hand[1].suit +
       '\n His hand is now: ' + this.dealer.hand[0].value + ' of ' + this.dealer.hand[0].suit + ' && ' +
       '\n' + this.dealer.hand[1].value + ' of ' + this.dealer.hand[1].suit);
-      // alert('The dealer flipped a ' + this.dealer.hand[1].value + ' of ' + this.dealer.hand[1].suit +
-      // '\n His hand is now:' + this.dealer.hand[0].value + ' of ' + this.dealer.hand[0].suit + ' && ' +
-      // '\n' + this.dealer.hand[1].value + ' of ' + this.dealer.hand[1].suit);
+
       this.updateScore(this.dealer, this.player);
       if (this.dealer.total >= 17) {
         // He stays, check messages.push(

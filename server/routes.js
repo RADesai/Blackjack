@@ -8,6 +8,12 @@ module.exports = function(app, express){
   app.get('/js/game.js', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/js/game.js'));
   });
+  app.get('/LifeJack.png', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/LifeJack.png'));
+  });
+  app.get('/LifeJackk.png', (req, res) => {
+    res.sendFile(path.join(__dirname, '../LifeJackk.png'));
+  });
   app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/index.html'));
   });

@@ -11,8 +11,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
     <script src="https://code.angularjs.org/1.6.1/angular-route.min.js"></script>
-    <!-- <script src="/node_modules/angular/angular.js"></script>
-    <script src="/node_modules/angular-route/angular-route.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-animate.min.js"></script>
     <script src="./js/game.js"></script>
   </head>
 
@@ -20,7 +19,17 @@
     <div class="container">
 
       <div class="header clearfix">
-        <h3 class="surfaceText">Life Hacks at LifeJax</h3>
+        <div class="jumbotron jumbotronT">
+          <div class="logo">
+            <img src="./LifeJack.png" class="img-fluid rounded" />
+          </div>
+        </div>
+      </div>
+
+      <div class="jumbotron jumbotronT">
+        <div class="yellow">
+          <img src="../LifeJackk.png" class="img-fluid rounded" />
+        </div>
       </div>
 
       <div class="jumbotron">
@@ -30,13 +39,12 @@
             You'll play for 5 hands, and the game will decide if you've earned some 'play time' or
             'work time,' the more you gamble the higher the stakes get!
         </p>
-        <!-- <p><a class="btn btn-lg btn-success">Play BlackJack Below!</a></p> -->
         <p class="lead"><strong>Play BlackJack Below!</strong></p>
       </div>
 
       <div class="jumbotron jumbotronT text-center">
         <div class="list-group">
-          <p class="list-group-item" ng-repeat="message in game.messages track by $index">{{message}}"</p>
+          <p class="list-group-item message" ng-repeat="message in game.messages track by $index">{{message}}"</p>
         </div>
       </div>
 
