@@ -7,19 +7,22 @@
     <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:600|Lato|Nova+Mono" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="../cards.min.css" />
 
-    <title>LifeJax</title>
+    <title>LifeJack</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
     <script src="https://code.angularjs.org/1.6.1/angular-route.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-animate.min.js"></script>
+    <!-- <script src="https://unpkg.com/cardsJS/dist/cards.min.js" type="text/javascript"></script> -->
+    <!-- <script src="../cards.min.js"></script> -->
     <script src="./js/game.js"></script>
   </head>
 
   <body ng-app="app" ng-controller="GameController">
 
     <div class="jumbotron header">
-      <img src="./LifeJack.png" class="img-fluid rounded" />
+      <img ng-src="./LifeJack.png" class="img-fluid rounded" />
     </div>
 
     <div class="container">
@@ -31,6 +34,32 @@
           'work time,' the more you gamble the higher the stakes get!
         </p>
         <p class="lead"><strong>Play BlackJack Below!</strong></p>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="hand hhand-compact active-hand">
+            <img class='card' ng-src='cards/AS.svg'>
+            <!-- <img class='card' ng-src='cards/KS.svg'>
+            <img class='card' ng-src='cards/QS.svg'>
+            <img class='card' ng-src='cards/JS.svg'>
+            <img class='card' ng-src='cards/10S.svg'>
+            <img class='card' ng-src='cards/9H.svg'>
+            <img class='card' ng-src='cards/3H.svg'> -->
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="hand hhand-compact active-hand">
+            <span ng-repeat="card in game.cards track by $index"><img class='card' ng-src='cards/{{card}}'></span>
+            <!-- <img class='card' ng-src='cards/AS.svg'>
+            <img class='card' ng-src='cards/KS.svg'>
+            <img class='card' ng-src='cards/QS.svg'>
+            <img class='card' ng-src='cards/JS.svg'>
+            <img class='card' ng-src='cards/10S.svg'>
+            <img class='card' ng-src='cards/9H.svg'>
+            <img class='card' ng-src='cards/3H.svg'> -->
+          </div>
+        </div>
       </div>
 
       <div class="jumbotron jumbotronT text-center">

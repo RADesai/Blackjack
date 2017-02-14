@@ -42,6 +42,12 @@ app.factory('Game', function () {
       Clubs : ['2','3','4','5','6','7','8','9','10','J','Q','K','A'],
       Diamonds : ['2','3','4','5','6','7','8','9','10','J','Q','K','A']
     };
+    this.cards = [
+      '2S.svg', '3S.svg', '4S.svg', '5S.svg', '6S.svg', '7S.svg', '8S.svg', '9S.svg', '10S.svg', 'JS.svg', 'QS.svg', 'KS.svg', 'AS.svg',
+      '2H.svg', '3H.svg', '4H.svg', '5H.svg', '6H.svg', '7H.svg', '8H.svg', '9H.svg', '10H.svg', 'JH.svg', 'QH.svg', 'KH.svg', 'AH.svg',
+      '2C.svg', '3C.svg', '4C.svg', '5C.svg', '6C.svg', '7C.svg', '8C.svg', '9C.svg', '10C.svg', 'JC.svg', 'QC.svg', 'KC.svg', 'AC.svg',
+      '2D.svg', '3D.svg', '4D.svg', '5D.svg', '6D.svg', '7D.svg', '8D.svg', '9D.svg', '10D.svg', 'JD.svg', 'QD.svg', 'KD.svg', 'AD.svg'
+    ];
   };
 
   BlackJack.prototype.reset = function() {
