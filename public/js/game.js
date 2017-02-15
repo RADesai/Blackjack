@@ -10,6 +10,7 @@ app.config(function ($routeProvider, $httpProvider) {
 });
 
 app.controller('GameController', function ($scope, Game) {
+  $scope.inPlay = false;
   $scope.game = Game;
   return true;
 });
@@ -243,9 +244,6 @@ app.factory('Game', function () {
 
   BlackJack.prototype.bust = function() {
     this.over = true;
-    console.log('Player Hands after a bust:');
-    console.log('Player Hand :', this.player.hand);
-    console.log('Dealer Hand :', this.dealer.hand);
     if (this.player.total > 21) {
       this.time -= Number(this.bet);
       this.messages.push('Oh no! You busted!');
@@ -262,9 +260,9 @@ app.factory('Game', function () {
     // Declare a winner
     // Check for blackjack ...
     this.over = true;
-    console.log('Player Hands @ end:');
-    console.log('Player Hand :', this.player.hand);
-    console.log('Dealer Hand :', this.dealer.hand);
+    console.log('Hands @ end:');
+    console.log('Player Hand:', this.player.hand);
+    console.log('Dealer Hand:', this.dealer.hand);
     if (this.player.total === 21) {
       this.time += 1.5 * Number(this.bet);
       this.messages.push('BLACKJACK!');

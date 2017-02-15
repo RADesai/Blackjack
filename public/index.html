@@ -6,14 +6,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:600|Lato|Nova+Mono" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="./css/styles.css" />
     <link rel="stylesheet" type="text/css" href="../cards.min.css" />
+    <link rel="stylesheet" type="text/css" href="./css/styles.css" />
 
     <title>LifeJack</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
     <script src="https://code.angularjs.org/1.6.1/angular-route.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.min.js"></script>
     <script src="./js/game.js"></script>
   </head>
 
@@ -25,33 +26,29 @@
 
     <div class="container">
       <div class="jumbotron intro">
-        <h3>Working hard? Step into the lion's den and see if you have what it takes to earn a break.</h1>
+        <h3>Been working hard?</h3>
+        <h3>Step into the lion's den and see if you have what it takes to earn a break.</h3>
         <p class="lead">
           This is a very simple app that uses time as currency to play games of BlackJack.
           Depending on how you do, you'll either earn yourself some 'play time' or
           'work time,' the more you gamble the higher the stakes get!
         </p>
-        <p class="lead"><strong>Play BlackJack Below!</strong></p>
       </div>
 
-      <div class="jumbotron text-center">
-        <div class="list-group">
-          <p class="list-group-item message" ng-repeat="message in game.messages track by $index">{{message}}"</p>
-        </div>
-      </div>
-
-      <!-- <div class="row" ng-if="!game.over"> Render this div to show cards when game is being played -->
-      <div class="row">
-        <div class="col-md-6 jumbotron">
-          My Hand
+      <div class="row" ng-if="inPlay">
+        <div class="col-md-4 jumbotron">
           <div class="hand hhand-compact active-hand">
-            <span ng-repeat="card in game.playerHand track by $index"><img class='card' ng-src='cards/{{card}}.svg'></span>
+            <img class='card playerCard' ng-src='cards/{{card}}.svg' ng-animate="'animate'" ng-repeat="card in game.playerHand track by $index" />
           </div>
         </div>
-        <div class="col-md-6 jumbotron" ng-if="!game.playerTurn">
-          Dealer's Hand
+        <div class="col-md-4 text-center">
+          <div class="list-group">
+            <p class="list-group-item message" ng-animate="animate-repeat" ng-repeat="message in game.messages track by $index">{{message}}"</p>
+          </div>
+        </div>
+        <div class="col-md-4 jumbotron" ng-if="!game.playerTurn">
           <div class="hand hhand-compact active-hand">
-            <span ng-repeat="card in game.dealerHand track by $index"><img class='card' ng-src='cards/{{card}}.svg'></span>
+            <img class='card dealerCard' ng-src='cards/{{card}}.svg' ng-animate="'animate'" ng-repeat="card in game.dealerHand track by $index" />
           </div>
         </div>
       </div>
@@ -80,14 +77,14 @@
           </div>
 
           <div class="jumbotron" ng-if"game.over">
-            <form name="makeABet" ng-submit='game.startGame()'>
+            <form name="makeABet" ng-submit='inPlay=true; game.startGame()'>
               <input
               type='text'
               name="userBet"
               required ng-model='game.bet'
               ng-class="{'error': makeABet.$invalid && makeABet.$dirty}"
               >
-              <button ng-disabled="game.bet===0" class="btn btn-lg btn-success">Play</button>
+              <button ng-disabled="game.bet===0" class="btn btn-lg btn-success">BET</button>
             </form>
 
             <div class="jumbotron">

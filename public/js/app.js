@@ -1,1 +1,1 @@
-angular.module('app', ['ngRoute', 'appRoutes', 'GameController', 'GameFactory']);
+angular.module('app', ['ngRoute', 'ngAnimate', 'appRoutes', 'GameController', 'GameFactory']);
