@@ -3,19 +3,16 @@ const path = require('path');
 module.exports = function(app, express){
   let router = express.Router();
   app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/index.html'));
+    res.sendFile(path.join(__dirname, '../index.html'));
   });
-  app.get('/css/styles.css', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/css/styles.css'));
+  app.get('/src/css/styles.css', (req, res) => {
+    res.sendFile(path.join(__dirname, '../src/css/styles.css'));
   });
-  app.get('/js/game.js', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/js/game.js'));
-  });
-  app.get('/cards.min.css', (req, res) => {
-    res.sendFile(path.join(__dirname, '../cards.min.css'));
+  app.get('/src/js/game.js', (req, res) => {
+    res.sendFile(path.join(__dirname, '../src/js/game.js'));
   });
   app.get('/LifeJack.png', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/LifeJack.png'));
+    res.sendFile(path.join(__dirname, '../src/LifeJack.png'));
   });
   // Getting each card individually, need to find efficient way to bring these images in...
   app.get('/cards/2S.svg', (req, res) => {

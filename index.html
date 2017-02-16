@@ -6,22 +6,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:600|Lato|Nova+Mono" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../cards.min.css" />
-    <link rel="stylesheet" type="text/css" href="./css/styles.css" />
-
+    <link rel="stylesheet" type="text/css" href="./src/css/styles.css" />
     <title>LifeJack</title>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
-    <script src="https://code.angularjs.org/1.6.1/angular-route.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-animate.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.min.js"></script>
-    <script src="./js/game.js"></script>
   </head>
 
   <body ng-app="app" ng-controller="GameController">
 
     <div class="jumbotron header">
-      <img ng-src="./LifeJack.png" class="img-fluid rounded" />
+      <img ng-src="./LifeJack.png" />
     </div>
 
     <div class="container">
@@ -38,25 +30,25 @@
       <div class="row" ng-if="inPlay">
         <div class="col-md-4 jumbotron">
           <div class="hand hhand-compact active-hand">
-            <img class='card playerCard' ng-src='cards/{{card}}.svg' ng-animate="'animate'" ng-repeat="card in game.playerHand track by $index" />
+            <img class='card' ng-src='cards/{{card}}.svg' ng-repeat="card in game.playerHand track by $index" />
           </div>
         </div>
         <div class="col-md-4 text-center">
           <div class="list-group">
-            <p class="list-group-item message" ng-animate="animate-repeat" ng-repeat="message in game.messages track by $index">{{message}}"</p>
+            <p class="list-group-item message" ng-repeat="message in game.messages track by $index">{{message}}"</p>
           </div>
         </div>
         <div class="col-md-4 jumbotron" ng-if="!game.playerTurn">
           <div class="hand hhand-compact active-hand">
-            <img class='card dealerCard' ng-src='cards/{{card}}.svg' ng-animate="'animate'" ng-repeat="card in game.dealerHand track by $index" />
+            <img class='card' ng-src='cards/{{card}}.svg' ng-repeat="card in game.dealerHand track by $index" />
           </div>
         </div>
       </div>
 
       <div class="jumbotron text-center">
         <div class="play">
-          <h2 ng-if="game.playerTurn===true">Your Move!</h2>
-          <h2 ng-if="game.over===true">Game Over!</h2>
+          <h3 ng-if="game.playerTurn===true">Your Move!</h3>
+          <h3 ng-if="game.over===true">Game Over!</h3>
 
           <div class="playerInfo">
             <div class="list-group">
@@ -66,7 +58,7 @@
               <a class="list-group-item list-group-item-action list-group-item-warning" ng-if="!game.playerTurn">
                 Your hand: {{game.player.total}}   v   Dealer's hand: {{game.dealer.total}}
               </a>
-              <a class="list-group-item list-group-item-action list-group-item-info">Current Bet: {{game.bet}}</a>
+              <a class="list-group-item list-group-item-action list-group-item-info">Current Bet: {{game.bet}} mins</a>
               <a class="list-group-item list-group-item-action list-group-item-success">Balance: {{game.time}}</a>
             </div>
           </div>
@@ -79,29 +71,33 @@
           <div class="jumbotron" ng-if"game.over">
             <form name="makeABet" ng-submit='inPlay=true; game.startGame()'>
               <input
+              required
               type='text'
-              name="userBet"
-              required ng-model='game.bet'
-              ng-class="{'error': makeABet.$invalid && makeABet.$dirty}"
+              placeholder="Place your bet here!"
+              ng-model='game.bet'
+              ng-class="{'error': (!game.bet>0 && makeABet.$dirty) || (makeABet.$invalid && makeABet.$dirty)}"
+              ng-if="!inPlay"
               >
-              <button ng-disabled="game.bet===0" class="btn btn-lg btn-success">BET</button>
+              <button ng-if="!inPlay" ng-disabled="!game.bet>0" class="btn btn-lg btn-success">BET</button>
             </form>
 
             <div class="jumbotron">
-              <button class="btn btn-xs btn-danger" ng-click="game.reset()">RESET HAND</button>
+              <button class="btn btn-primary" ng-click="game.reset(); inPlay=false; game.over=false">NEW HAND</button>
             </div>
           </div>
         </div>
-
-<!-- PUT THIS DIV AS A SIDEBAR     .. NOTE > js file is going in the wrong order
-          <div class="message">
-            <p ng-repeat="msg in game.messages">{{msg}}</p>
-          </div>
--->
       </div>
     </div>
-    <!-- <footer class="footer">
-      <p class="surfaceText">&copy; RADesai HRR20</p>
-    </footer> -->
+    <div class="text-center">
+      This app was made with Angular, Node, && Express, please feel free to contribute your own ideas here:
+      <a href="https://github.com/RADesai/Blackjack" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
+    </div>
+
+    <script src="https://use.fontawesome.com/0639afb492.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.6.1/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-animate.min.js"></script> -->
+    <script src="./src/js/game.js"></script>
   </body>
 </html>

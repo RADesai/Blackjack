@@ -1,0 +1,124 @@
+body {
+  background-color: #2AA6CC;
+  color: #FFD877;
+}
+
+.jumbotron.header {
+  padding-top: 0;
+  background: transparent;
+  background-color: transparent;
+  border-bottom: 2px solid #867BCD;
+}
+
+.jumbotron.intro {
+  font-family: 'Josefin Sans', sans-serif;
+  border-bottom: 2px solid #867BCD;
+}
+
+.jumbotron {
+  background-color: transparent;
+}
+
+.lead {
+  font-family: 'Lato', sans-serif;
+}
+
+.message {
+  font-family: 'Lato', sans-serif;
+  background-color: transparent;
+  border: none;
+  color: #FFD877;
+}
+
+.message.ng-move,
+img.card.ng-move,
+.message.ng-enter,
+img.card.ng-enter,
+.message.ng-leave,
+img.card.ng-leave {
+  transition: 0.5s ease;
+}
+
+.message.ng-enter-stagger,
+img.card.ng-enter-stagger, {
+  transition-delay: 0.75s ease;
+  animation-delay: 0.75s ease;
+}
+
+.message.ng-leave.ng-leave-active,
+img.card.ng-leave.ng-leave-active,
+.message.ng-move,
+img.card.ng-move,
+.message.ng-enter,
+img.card.ng-enter {
+  opacity:0;
+  max-height:0;
+}
+
+.message.ng-leave,
+img.card.ng-leave,
+.message.ng-move.ng-move-active,
+img.card.ng-move.ng-move-active,
+.message.ng-enter.ng-enter-active,
+img.card.ng-enter.ng-enter-active {
+  opacity:1;
+  max-height:30px;
+}
+
+.playerInfo {
+  font-family: 'Nova Mono', monospace;
+}
+
+form {
+  font-family: 'Nova Mono', monospace;
+  color: #2AA6CC;
+}
+
+input.error {
+  border: red solid 3px;
+}
+
+.btn {
+  font-family: 'Lato', sans-serif;
+  color: #2AA6CC;
+}
+
+/*-----------  CARDSJS  -----------*/
+img.card {
+	width: 85px;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align: initial;
+	box-sizing: initial;
+}
+
+/*
+ * A hand is a div containing cards.
+ */
+.hand {
+	padding: 0;
+	margin: 0;
+}
+.active-hand img.card {
+	cursor: pointer;
+}
+
+/*
+ * A compact horizontal hand.  Only the last card is entirely visible.
+ */
+.hhand-compact {
+	display: inline-block;
+}
+.hhand-compact img.card:first-child {
+	margin-left: 0px;
+	padding-top: 10px;
+}
+.hhand-compact img.card {
+	margin-left: -52px;
+	padding-top: 10px;
+}
+.hhand-compact.active-hand img.card:hover {
+	padding-top: 0px;
+	padding-bottom: 10px;
+}

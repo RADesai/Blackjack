@@ -19,7 +19,7 @@ app.factory('Game', function () {
   // IMPORT
   var BlackJack = function(time) {
     this.time = time;
-    this.bet = 0;
+    this.bet = '';
     this.messages = ['How much time will you win? Only the cards know!', 'Enter your bet and hit play to start!'];
     this.showPlayButton = true;
     this.dealer = {
@@ -177,6 +177,7 @@ app.factory('Game', function () {
         this.dealer.total += 10;
       } else if (this.dealer.hand[i].value === 'A') {
         this.dealer.total += 11;
+        this.dealer.total > 21 ? this.dealer.total -= 10 : this.dealer.total; // breaking Ace-11 resets to value of 1
       } else {
         this.dealer.total += Number(this.dealer.hand[i].value);
       }
@@ -186,6 +187,7 @@ app.factory('Game', function () {
         this.player.total += 10;
       } else if (this.player.hand[j].value === 'A') {
         this.player.total += 11;
+        this.player.total > 21 ? this.player.total -= 10 : this.player.total; // breaking Ace-11 resets to value of 1
       } else {
         this.player.total += Number(this.player.hand[j].value);
       }
@@ -265,10 +267,10 @@ app.factory('Game', function () {
     console.log('Dealer Hand:', this.dealer.hand);
     if (this.player.total === 21) {
       this.time += 1.5 * Number(this.bet);
-      this.messages.push('BLACKJACK!');
+      this.messages.push('21!');
     } else if (this.dealer.total === 21) {
       this.time -= Number(this.bet);
-      this.messages.push('Oh no! The dealer has BLACKJACK!');
+      this.messages.push('Oh no! The dealer has 21!');
     } else if (this.player.total > this.dealer.total) {
       this.time += Number(this.bet);
       this.messages.push('You won this hand!');
@@ -280,15 +282,13 @@ app.factory('Game', function () {
     }
     // PLAY AGAIN ?
     if (this.time > 0) {
-      this.messages.push("Thanks for playing, but now you've got " + this.time + " minutes to play!");
+      this.messages.push(`Thanks for playing, you've got ${this.time} minutes to play!`);
     } else {
-      this.messages.push("Thanks for playing, but now you've got " + this.time * -1 + " minutes of work to do!");
+      this.messages.push(`Thanks for playing, but now you've got ${this.time * -1} minutes of work to do!`);
     }
     this.bet = 0;
   };
 
-  // var returnGame = new BlackJack(0);
-  // return returnGame;
   return new BlackJack(0);
 });
 // app.service('myService', function() {
