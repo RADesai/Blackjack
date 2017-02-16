@@ -118,13 +118,12 @@ app.factory('Game', function () {
 
       this.updateScore(this.dealer, this.player);
       if (this.dealer.total >= 17) {
-        // He stays, check messages.push(
+        // He stays
         this.end();
       } else {
         // Dealer has to hit again
         this.hit();
       }
-    // }
   };
 
   BlackJack.prototype.drawCard = function() {
@@ -164,7 +163,6 @@ app.factory('Game', function () {
       }
     } else {
       // Draw a different card
-      console.log('It seems a card was already drawn ... a different card will be drawn instead.');
       this.drawCard();
     }
   };
@@ -214,8 +212,6 @@ app.factory('Game', function () {
         if (this.player.total > 21) {
           this.playerTurn = false;
           this.bust();
-        } else {
-          // this.playerMove(); /// CHECK FROM HERE ---
         }
       } else {                                                                  // Dealer's turn
         this.dealer.hand.push({
@@ -259,12 +255,7 @@ app.factory('Game', function () {
   };
 
   BlackJack.prototype.end = function() {
-    // Declare a winner
-    // Check for blackjack ...
     this.over = true;
-    console.log('Hands @ end:');
-    console.log('Player Hand:', this.player.hand);
-    console.log('Dealer Hand:', this.dealer.hand);
     if (this.player.total === 21) {
       this.time += 1.5 * Number(this.bet);
       this.messages.push('21!');
